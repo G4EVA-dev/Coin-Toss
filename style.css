@@ -127,7 +127,6 @@ body {
 @media (max-width: 768px) {
   body {
     background-color: white;
-    overflow-y: hidden;
   }
  
   .container {

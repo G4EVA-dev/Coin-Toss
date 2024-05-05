@@ -74,7 +74,7 @@ body {
   justify-content: space-between;
   color: #333;
   padding: 20px;
-  margin-top: 55px;
+  /* margin-top: 55px; */
   box-shadow: 0 0 10px rgba(0, 95, 143, 0.25);
   border-radius: 10px;
   font-weight: 900;
@@ -85,7 +85,7 @@ body {
 .buttons{
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 .buttons button{
@@ -118,6 +118,7 @@ body {
   border: 3px sollid #333;
 } */
 
+/* !Media Queries */
 @media (max-width: 768px) {
   body {
     background-color: white;

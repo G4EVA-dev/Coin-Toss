@@ -79,7 +79,7 @@ function storeResultsInCookie() {
   };
   document.cookie = `coinGameResults=${JSON.stringify(
     results
-  )};expires=${new Date(Date.now() + 604800000).toUTCString()};path=/`;
+  )};expires=${new Date(Date.now() + 604800000).toUTCString()};path=/;Secure`;
 }
 
 function getCookie(name) {

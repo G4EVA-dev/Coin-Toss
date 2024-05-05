@@ -6,6 +6,19 @@ let resetBtn = document.querySelector("#resetGame");
 //These lines initialize the variables heads and tails to keep track of the number of times heads and tails appear.
 let heads = 0;
 let tails = 0;
+let roundsPlayed = 0;
+
+//Check if the user has played before
+let previousResults = getCookie("coinGameResults");
+if (previousResults) {
+  let parsedResults = JSON.parse(previousResults);
+  let Heads = parsedResults.heads;
+  let Tails = parsedResults.tails;
+  console.log("Heads:", Heads);
+  console.log("Tails:", Tails);
+} else {
+  console.log("No previous results found.");
+}
 
 // !Game Logic
 flipBtn.addEventListener("click", () => {
@@ -24,8 +37,17 @@ flipBtn.addEventListener("click", () => {
     }, 100);
     tails++;
   }
-  setTimeout(updateStats, 3000);
-  disableButton();
+  
+  roundsPlayed++;
+  //Checks number of time Player plays.
+  if (roundsPlayed === 3) {
+    updateStats();
+    storeResultsInCookie();
+    flipBtn.disabled = true;
+  } else {
+    setTimeout(updateStats, 3000);
+    disableButton();
+  }
 });
 
 //This function updates the HTML to display the current counts of heads and tails.
@@ -49,3 +71,19 @@ resetBtn.addEventListener("click", () => {
   tails = 0;
   updateStats();
 });
+
+function storeResultsInCookie() {
+  let results = {
+    heads: heads,
+    tails: tails,
+  };
+  document.cookie = `coinGameResults=${JSON.stringify(
+    results
+  )};expires=${new Date(Date.now() + 604800000).toUTCString()};path=/`;
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}

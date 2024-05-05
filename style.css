@@ -6,7 +6,7 @@
 }
 body {
   height: 100vh;
-  background: #59afe9;
+  background: #b2cee0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,3 +117,20 @@ body {
   color: black;
   border: 3px sollid #333;
 } */
+
+@media (max-width: 768px) {
+  body {
+    background-color: white;
+  }
+ 
+  .container {
+    width: 100%;
+    flex-direction: row;
+    background-color: white;
+    box-shadow: none;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+}

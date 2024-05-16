@@ -130,7 +130,7 @@ footer{
 @media (max-width: 768px) {
   body {
     background-color: white;
-    
+    flex-direction: column;
   }
  
   .container {
@@ -149,5 +149,8 @@ footer{
     margin-bottom: 40px;
   }
 
-  
+  footer{
+    position: absolute;
+    bottom: 0;
+  }
 }

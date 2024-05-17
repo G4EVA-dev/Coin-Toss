@@ -8,17 +8,17 @@ let heads = 0;
 let tails = 0;
 let roundsPlayed = 0;
 
-//Check if the user has played before
-let previousResults = getCookie("coinGameResults");
-if (previousResults) {
-  let parsedResults = JSON.parse(previousResults);
-  let Heads = parsedResults.heads;
-  let Tails = parsedResults.tails;
-  console.log("Heads:", Heads);
-  console.log("Tails:", Tails);
-} else {
-  console.log("No previous results found.");
-}
+//!Check if the user has played before
+// let previousResults = getCookie("coinGameResults");
+// if (previousResults) {
+//   let parsedResults = JSON.parse(previousResults);
+//   let Heads = parsedResults.heads;
+//   let Tails = parsedResults.tails;
+//   console.log("Heads:", Heads);
+//   console.log("Tails:", Tails);
+// } else {
+//   console.log("No previous results found.");
+// }
 
 // !Game Logic
 flipBtn.addEventListener("click", () => {
@@ -37,13 +37,21 @@ flipBtn.addEventListener("click", () => {
     }, 100);
     tails++;
   }
-  
+
   roundsPlayed++;
   //Checks number of time Player plays.
   if (roundsPlayed === 3) {
     updateStats();
     storeResultsInCookie();
     flipBtn.disabled = true;
+
+    resetBtn.addEventListener("click", () => {
+      coin.style.animation = "none";
+      heads = 0;
+      tails = 0;
+      updateStats();
+      flipBtn.disabled = false;
+    });
   } else {
     setTimeout(updateStats, 3000);
     disableButton();
@@ -72,18 +80,36 @@ resetBtn.addEventListener("click", () => {
   updateStats();
 });
 
+// function storeResultsInCookie() {
+//   let results = {
+//     heads: heads,
+//     tails: tails,
+//   };
+//   document.cookie = `coinGameResults=${JSON.stringify(
+//     results
+//   )};expires=${new Date(Date.now() + 604800000).toUTCString()};path=/;Secure`;
+// }
+
+// function getCookie(name) {
+//   const value = `; ${document.cookie}`;
+//   const parts = value.split(`; ${name}=`);
+//   if (parts.length === 2) return parts.pop().split(";").shift();
+// }
+
+// Function to send game results to the server using fetch
 function storeResultsInCookie() {
   let results = {
     heads: heads,
     tails: tails,
   };
-  document.cookie = `coinGameResults=${JSON.stringify(
-    results
-  )};expires=${new Date(Date.now() + 604800000).toUTCString()};path=/;Secure`;
-}
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
+  fetch("/results", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(results),
+  })
+    .then((response) => response.text())
+    .then((data) => console.log(data)) // Handle response from server
+    .catch((error) => console.error(error));
 }

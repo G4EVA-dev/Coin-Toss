@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const path = require("path"); //
 
-const app = require('/home/glenndev/Documents/Coin-Toss/app');
+const app = require('/home/glenndev/Documents/Coin-Toss/app.js');
 const port = 3000;
 
 // In-memory storage for game results (replace with a database or file system if needed)

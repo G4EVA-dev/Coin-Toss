@@ -2,6 +2,7 @@
 let coin = document.querySelector(".coin");
 let flipBtn = document.querySelector("#flipCoin");
 let resetBtn = document.querySelector("#resetGame");
+let coinSound = document.querySelector("#coinSound");
 
 //These lines initialize the variables heads and tails to keep track of the number of times heads and tails appear.
 let heads = 0;
@@ -22,6 +23,9 @@ let roundsPlayed = 0;
 
 // !Game Logic
 flipBtn.addEventListener("click", () => {
+
+  coinSound.play(); //Play Sound when Button is Clicked
+
   let i = Math.floor(Math.random() * 2);
   console.log(i);
   coin.style.animation = "none";
